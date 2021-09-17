@@ -1,15 +1,19 @@
 import {Card} from 'react-bootstrap';
 import pix from '../assets/pix.jpg';
+import Image from 'next/image';
+import Link from 'next/link';
 
 
 const Cards = () =>{
     return (
         <Card bg='dark' style={{color:'#89e163'}}>
-            <Card.Img variant="top" src={pix} />
+            <Image  src={pix} alt="Premio" />
             <Card.Body>
             <Card.Title>Sorteio 1</Card.Title>
             <Card.Text>
-                Premio x
+                <Link href={`/sorteio/${encodeURIComponent(post.slug)}`}>
+                    <a>{post.title}</a>
+                </Link>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
