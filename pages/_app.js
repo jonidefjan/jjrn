@@ -1,5 +1,7 @@
 import Head from "next/head";
 import "../css/customcss.css";
+import 'bootstrap/dist/css/bootstrap.css';
+
 function MyApp({ Component, pageProps }) {
 return (
 <>

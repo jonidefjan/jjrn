@@ -1,12 +1,14 @@
 import {Container, Row, Col} from 'react-bootstrap';
 import Cards from '../components/card'
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Home({ Component, pageProps }) {
   return (
       <>
       <Header/>
-    <Container fluid>
+      <hr/>
+    <Container fluid align="center">
 
       <Container  fluid>
 
@@ -15,19 +17,14 @@ function Home({ Component, pageProps }) {
           <h1>SORTEIOS EM ANDAMENTO</h1>
           </Col>
         </Row>
-
-        <Row>
-          <Col xs={4}>
+        <hr/>
+        <Row >
+          <Col xs={4} >
             <Cards/>
           </Col>
-          <Col>
-            <Cards/>
-          </Col>
-          <Col>
-            <Cards/>
-          </Col>
+         
         </Row>
-
+        <hr/>
       </Container>
 
       <Container fluid >
@@ -41,20 +38,16 @@ function Home({ Component, pageProps }) {
         </Row>
 
         <Row>
-          <Col>
+          <Col xs={4}>
             <Cards/>
           </Col>
-          <Col>
-            <Cards/>
-          </Col>
-          <Col>
-            <Cards/>
-          </Col>
+          
         </Row>
-        
+        <hr/>
       </Container>
 
     </Container>
+    <Footer/>
     </>
   );
 }

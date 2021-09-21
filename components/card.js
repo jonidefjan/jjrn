@@ -11,8 +11,8 @@ const Cards = () =>{
             <Card.Body>
             <Card.Title>Sorteio 1</Card.Title>
             <Card.Text>
-                <Link href={`/sorteio/${encodeURIComponent(post.slug)}`}>
-                    <a>{post.title}</a>
+                <Link href={`/sorteio/1`}>
+                    <a>premio</a>
                 </Link>
             </Card.Text>
             </Card.Body>

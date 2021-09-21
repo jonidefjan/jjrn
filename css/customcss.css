@@ -31,4 +31,33 @@
 }
 body{
     background-image: url('../assets/screen_2x.jpg');
+    background-size: contain;
+}
+.card-text a{
+    text-decoration: none !important;
+    color:#89e163 !important;
+}
+.desconto {
+    display: none;
+}
+.my-2 {
+    min-width:200px;
+}
+.s {
+    display: none !important;
+}
+h1{
+    color:#89e163;
+}
+.numero{
+    margin: 5px !important;
+}
+.filtro{
+    margin: 5px !important;
+}
+p, h3, h2, li{
+    color:#89e163;
+}
+li{
+    list-style: none;
 }
