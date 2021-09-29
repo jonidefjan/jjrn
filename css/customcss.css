@@ -52,9 +52,7 @@ h1{
 .numero{
     margin: 5px !important;
 }
-.filtro{
-    margin: 5px !important;
-}
+
 p, h3, h2, li{
     color:#89e163;
 }
@@ -63,5 +61,13 @@ li{
 }
 .selecionado{
     background-color: #89e163 !important;
+    color:#000 !important;
+}
+.S{
+    background-color: #89e163 !important;
+    color:#000 !important;
+}
+.R{
+    background-color: #31D2F2 !important;
     color:#000 !important;
 }
