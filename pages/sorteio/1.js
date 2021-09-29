@@ -1,11 +1,19 @@
-import {Container, Row, Col, Button, ButtonGroup, Carousel} from 'react-bootstrap';
-import Header from '../../components/Header';
-import premio from '../../assets/pix.png';
+import React from 'react';
 import Image from 'next/image';
+import {
+  Button,
+  ButtonGroup,
+  Carousel,
+  Col,
+  Container,
+  Row,
+} from 'react-bootstrap';
+
+import premio from '../../assets/pix.png';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
 
-
-export const getStaticProps = async ()=> {
+export const getServerSideProps = async ()=> {
     const res = await fetch("http://localhost:3000/api/api");
     const data = await res.json();
 
@@ -28,9 +36,22 @@ export const getStaticProps = async ()=> {
     }
 }
 
-
 export default function Sorteio1({sorteio}) {
+    const [checked, setChecked] = React.useState([])
 
+    console.info(checked)
+
+    const handleCheck = (button) => {
+        const id = button.target.id
+        const currentIndex = checked.indexOf(id)
+
+        if (currentIndex === -1) {
+            setChecked(prevState => [...prevState, id])
+            // console.log("a")
+        } else {
+            setChecked(checked.filter(item => item !== id)    )
+        }
+    }
 
   return (
       <>
@@ -96,12 +117,22 @@ export default function Sorteio1({sorteio}) {
             <Container fluid align="center">
                 <Row>
                     <Col>
+                    
                         {sorteio.map((numero, idx) => {
 
 
-                            return <Button onclick="selecionaNumero" id={numero.id} variant="secondary" key={idx}  className={numero.pago + ' numero'  }>{numero.numero}</Button>
+                            return <Button 
+                                
+                                id={numero.id} 
+                                key={idx}
+                                variant={checked.includes(numero.id.toString()) ? "success" : "secondary"}
+                                onClick={handleCheck} 
+                                className={`${numero.pago} numero`}
+                                
+                                >{numero.numero}</Button>
 
                         })}
+
                     </Col>
                 </Row>
             </Container>
@@ -119,6 +150,4 @@ export default function Sorteio1({sorteio}) {
   );    
 }
 
-function selecionaNumero(props) {
-    
-}
+   

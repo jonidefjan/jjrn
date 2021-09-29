@@ -61,3 +61,7 @@ p, h3, h2, li{
 li{
     list-style: none;
 }
+.selecionado{
+    background-color: #89e163 !important;
+    color:#000 !important;
+}

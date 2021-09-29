@@ -1,9 +1,23 @@
+import React, {useState } from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import Cards from '../components/card'
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Home({ Component, pageProps }) {
+
+  const [cart , setCart] = useState([]);
+  console.log(cart);
+
+  function handleAddNumber(id, preco){
+    const itemObject = {id , preco};
+    setCart([...cart, itemObject]);
+  }
+
+  function handleRemoveNumber(itemIndex){
+    
+  }
+
   return (
       <>
       <Header/>
