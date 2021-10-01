@@ -66,8 +66,28 @@ li{
 .S{
     background-color: #89e163 !important;
     color:#000 !important;
+    pointer-events: none;
+            cursor: default;
 }
 .R{
     background-color: #31D2F2 !important;
     color:#000 !important;
+    pointer-events: none;
+            cursor: default;
+}
+.buttonCheckout{
+    padding: 2px;
+    margin: 2px;
+}
+.whatsCheckout{
+    background-color: #01E675 !important;
+    border-color: #01E675 !important;
+
+}
+.whatsCheckout a{
+    text-decoration: none !important;
+    color:#fff !important;
+    font-size: 13px;
+    text-transform:uppercase;
+    font-weight:600;
 }

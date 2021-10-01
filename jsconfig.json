@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "checkJs": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve"
+  },
+  "exclude": ["node_modules"]
+}

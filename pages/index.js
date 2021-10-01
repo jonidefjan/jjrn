@@ -6,16 +6,6 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function Home({ Component, pageProps }) {
-  const [cart, setCart] = useState([]);
-  console.log(cart);
-
-  function handleAddNumber(id, preco) {
-    const itemObject = { id, preco };
-    setCart([...cart, itemObject]);
-  }
-
-  function handleRemoveNumber(itemIndex) {}
-
   return (
     <>
       <Header />
