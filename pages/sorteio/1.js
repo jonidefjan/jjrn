@@ -18,6 +18,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNumbersContext } from "../../contexts/NumbersContext";
 import { formatCurrency } from "../../lib/format";
+import Link from "next/link";
 
 export const getServerSideProps = async () => {
   const res = await fetch("https://jjrn.vercel.app/api/api");
@@ -155,7 +156,7 @@ function Checkout({ sorteio }) {
               Cancelar
             </Button>
             <Button variant="success" type="submit">
-              Aceitar
+              <Link href={/checkout}>Aceitar</Link>
             </Button>
           </Modal.Footer>
         </Modal>
