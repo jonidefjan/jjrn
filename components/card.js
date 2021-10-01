@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import pix from "../assets/pix.jpg";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,9 +9,10 @@ const Cards = () => {
       <Image src={pix} alt="Premio" />
       <Card.Body>
         <Card.Title>Edição Pix 001 valendo R$ 1.400,00</Card.Title>
+        <hr />
         <Card.Text>
           <Link href={`/sorteio/1`}>
-            <a>R$ 1.400,00</a>
+            <Button variant="success">Participar</Button>
           </Link>
         </Card.Text>
       </Card.Body>

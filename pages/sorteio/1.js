@@ -19,6 +19,7 @@ import Header from "../../components/Header";
 import { useNumbersContext } from "../../contexts/NumbersContext";
 import { formatCurrency } from "../../lib/format";
 import Link from "next/link";
+import { useState } from "react";
 
 export const getServerSideProps = async () => {
   const res = await fetch("https://jjrn.vercel.app/api/api");
@@ -49,7 +50,10 @@ export const getServerSideProps = async () => {
 
 function Checkout({ sorteio }) {
   const [show, setShow] = React.useState(false);
+  const [validated, setValidated] = React.useState(false);
   const { numbers, removeNumber } = useNumbersContext();
+
+  console.log(validated);
 
   const arr = numbers.length;
 
@@ -62,6 +66,17 @@ function Checkout({ sorteio }) {
 
   const price = sorteio[0].preco;
   const finalPrice = formatCurrency(arr * price);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    console.log(form);
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    event.preventDefault();
+    setValidated(true);
+  };
 
   if (arr <= 0) {
     return (
@@ -109,7 +124,7 @@ function Checkout({ sorteio }) {
           </Modal.Header>
           <Modal.Body>
             <Container>
-              <Form>
+              <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="numeros">
                   <Form.Label>Deseja reservar o(s) número(s):</Form.Label>
                   <br />
@@ -136,9 +151,11 @@ function Checkout({ sorteio }) {
                 <Form.Group className="mb-3" controlId="formGroupNome">
                   <Form.Label>Nome Completo:</Form.Label>
                   <Form.Control
+                    defaultValue=""
                     type="text"
                     placeholder="Insira seu nome completo"
                     maxLength="32"
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupCel">
@@ -147,19 +164,26 @@ function Checkout({ sorteio }) {
                     type="tel"
                     placeholder="Insira seu telefone"
                     maxLength="11"
+                    required
+                    defaultValue=""
                   />
                 </Form.Group>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Cancelar
+                  </Button>
+                  <Button
+                    variant="success"
+                    type="submit"
+                    className="whatsCheckout"
+                    onSubmit={handleSubmit}
+                  >
+                    Aceitar
+                  </Button>
+                </Modal.Footer>
               </Form>
             </Container>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Cancelar
-            </Button>
-            <Button variant="success" type="submit" className="whatsCheckout">
-              <Link href={`/checkout`}>Aceitar</Link>
-            </Button>
-          </Modal.Footer>
         </Modal>
       </>
     );
