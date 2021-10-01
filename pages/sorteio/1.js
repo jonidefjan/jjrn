@@ -155,8 +155,8 @@ function Checkout({ sorteio }) {
             <Button variant="secondary" onClick={handleClose}>
               Cancelar
             </Button>
-            <Button variant="success" type="submit">
-              <Link href={/checkout}>Aceitar</Link>
+            <Button variant="success" type="submit" className="whatsCheckout">
+              <Link href={`/checkout`}>Aceitar</Link>
             </Button>
           </Modal.Footer>
         </Modal>

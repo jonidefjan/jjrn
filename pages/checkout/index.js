@@ -8,7 +8,7 @@ import logo2 from "../../assets/Como-Cadastrar-o.png";
 import logo3 from "../../assets/logo-bradesco-768.png";
 
 export const getServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/api");
+  const res = await fetch("https://jjrn.vercel.app/api/api");
   const data = await res.json();
 
   const sorteios = data.map((datas) => {
