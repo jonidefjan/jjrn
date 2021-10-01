@@ -20,7 +20,7 @@ import { useNumbersContext } from "../../contexts/NumbersContext";
 import { formatCurrency } from "../../lib/format";
 
 export const getServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/api");
+  const res = await fetch("https://jjrn.vercel.app/api/api");
   const data = await res.json();
 
   const sorteios = data.map((datas) => {
