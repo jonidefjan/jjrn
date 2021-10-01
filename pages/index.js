@@ -39,7 +39,7 @@ function Home() {
           </Row>
 
           <Row>
-            <Col xs={4}>
+            <Col xs="auto">
               <Cards />
             </Col>
           </Row>
