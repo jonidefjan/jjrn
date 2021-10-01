@@ -118,6 +118,7 @@ function Checkout({ sorteio }) {
                     {numbers.map((numero, idx) => (
                       <Button
                         id={idx}
+                        variant="success"
                         className="buttonCheckout"
                         key={idx}
                         onClick={handleRemove}

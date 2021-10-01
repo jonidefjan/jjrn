@@ -119,8 +119,8 @@ export default function Pagamentos({ sorteio }) {
           </Col>
         </Row>
         <hr />
-        <Row>
-          <Col>
+        <Row centered>
+          <Col md="4">
             <Card bg="dark" style={{ color: "#89e163" }}>
               <Image src={logo1} alt="Nubank Pix" width={500} height={500} />
               <Card.Body>
@@ -133,7 +133,7 @@ export default function Pagamentos({ sorteio }) {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          <Col md="4">
             <Card bg="dark" style={{ color: "#89e163" }}>
               <Image src={logo2} alt="Bradesco Pix" width={500} height={500} />
               <Card.Body>
@@ -146,7 +146,7 @@ export default function Pagamentos({ sorteio }) {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          <Col md="4">
             <Card bg="dark" style={{ color: "#89e163" }}>
               <Image
                 src={logo3}
@@ -157,7 +157,8 @@ export default function Pagamentos({ sorteio }) {
               <Card.Body>
                 <Card.Title>Transferencia Bradesco</Card.Title>
                 <Card.Text>
-                  FAg.: 0160 C/c.: 0099297-6 José Jacson da Silva de Sena
+                  FAg.: 0160 C/c.: 0099297-6 <br />
+                  José Jacson da Silva de Sena
                 </Card.Text>
               </Card.Body>
             </Card>
