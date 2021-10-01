@@ -108,7 +108,7 @@ function Checkout({ sorteio }) {
           </Modal.Header>
           <Modal.Body>
             <Container>
-              <Form onSubmit={}>
+              <Form>
                 <Form.Group className="mb-3" controlId="numeros">
                   <Form.Label>Deseja reservar o(s) número(s):</Form.Label>
                   <br />

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import Cards from "../components/card";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-function Home({ Component, pageProps }) {
+function Home() {
   return (
     <>
       <Header />
