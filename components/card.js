@@ -8,15 +8,15 @@ const Cards = () => {
     <Card bg="dark" style={{ color: "#89e163" }}>
       <Image src={pix} alt="Premio" />
       <Card.Body>
-        <Card.Title>Sorteio 1</Card.Title>
+        <Card.Title>Edição Pix 001 valendo R$ 1.400,00</Card.Title>
         <Card.Text>
           <Link href={`/sorteio/1`}>
-            <a>premio</a>
+            <a>R$ 1.400,00</a>
           </Link>
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">Data</small>
+        <small className="text-muted">01/10/2021</small>
       </Card.Footer>
     </Card>
   );
