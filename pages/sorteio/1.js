@@ -6,16 +6,18 @@ import {
   Carousel,
   Col,
   Container,
+  Form,
+  Modal,
+  OverlayTrigger,
   Row,
   Tooltip,
-  OverlayTrigger,
-  Modal,
-  Form,
 } from "react-bootstrap";
 
 import premio from "../../assets/pix.png";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import { useNumbersContext } from "../../contexts/NumbersContext";
+import { formatCurrency } from "../../lib/format";
 
 export const getServerSideProps = async () => {
   const res = await fetch("http://localhost:3000/api/api");
@@ -33,6 +35,7 @@ export const getServerSideProps = async () => {
       vencedor: datas.FLGSTATUS,
       preco: datas.PRECO,
       masked: str,
+      sorteio: datas.SORTEIO,
     };
 
     return obj;
@@ -43,121 +46,133 @@ export const getServerSideProps = async () => {
   };
 };
 
-export default function Sorteio1({ sorteio }) {
-  const [checked, setChecked] = React.useState([]);
+function Checkout({ sorteio }) {
+  const [show, setShow] = React.useState(false);
+  const { numbers, removeNumber } = useNumbersContext();
 
-  console.info(checked);
+  const arr = numbers.length;
 
-  const handleCheck = (button) => {
-    const id = button.target.id;
-    const currentIndex = checked.indexOf(id);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-    if (currentIndex === -1) {
-      setChecked((prevState) => [...prevState, id]);
-    } else {
-      setChecked(checked.filter((item) => item !== id));
-    }
+  const handleRemove = (element) => {
+    removeNumber(element.target.innerText);
   };
+
+  const price = sorteio[0].preco;
+  const finalPrice = formatCurrency(arr * price);
+
+  if (arr <= 0) {
+    return (
+      <>
+        <Button id="compra" variant="success" onClick={handleShow}>
+          Comprar
+        </Button>
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeLabel="">
+            <Modal.Title>Atenção!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Selecione pelo menos um número para efetuar uma reserva!
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Fechar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Button id="compra" variant="success" onClick={handleShow}>
+          Comprar
+        </Button>
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          centered
+        >
+          <Modal.Header closeLabel="">
+            <Modal.Title>Reserva de número</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Container>
+              <Form onSubmit={}>
+                <Form.Group className="mb-3" controlId="numeros">
+                  <Form.Label>Deseja reservar o(s) número(s):</Form.Label>
+                  <br />
+                  <Form.Label>
+                    {" "}
+                    {numbers.map((numero, idx) => (
+                      <Button
+                        id={idx}
+                        className="buttonCheckout"
+                        key={idx}
+                        onClick={handleRemove}
+                      >
+                        <span>{numero}</span>
+                      </Button>
+                    ))}{" "}
+                  </Form.Label>
+                  <br />
+                  <Form.Label>Valor a pagar: {finalPrice}</Form.Label>
+                  <br />
+                  <Form.Label>Por favor, preencha os dados abaixo:</Form.Label>
+                  <br />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formGroupNome">
+                  <Form.Label>Nome Completo:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Insira seu nome completo"
+                    maxLength="32"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formGroupCel">
+                  <Form.Label>Celular</Form.Label>
+                  <Form.Control
+                    type="tel"
+                    placeholder="Insira seu telefone"
+                    maxLength="11"
+                  />
+                </Form.Group>
+              </Form>
+            </Container>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancelar
+            </Button>
+            <Button variant="success" type="submit">
+              Aceitar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  }
+}
+
+export default function Sorteio1({ sorteio }) {
+  const { numbers, addNumber } = useNumbersContext();
+  console.log(numbers);
+
+  const handleCheck = (button) => addNumber(button.target.id);
 
   const filtro = (button) => {
     const id = button.target.id;
   };
-
-  function Checkout() {
-    const arr = checked.length;
-
-    const [show, setShow] = React.useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    if (arr <= 0) {
-      return (
-        <>
-          <Button id="compra" variant="success" onClick={handleShow}>
-            Comprar
-          </Button>
-
-          <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-          >
-            <Modal.Header closeLabel="">
-              <Modal.Title>Atenção!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Selecione pelo menos um número para efetuar uma reserva!
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Fechar
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Button id="compra" variant="success" onClick={handleShow}>
-            Comprar
-          </Button>
-
-          <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-            centered
-          >
-            <Modal.Header closeLabel="">
-              <Modal.Title>Reserva de número</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Container>
-                <Form>
-                  <Form.Group className="mb-3" controlId="numeros">
-                    <Form.Label>Deseja reservar o(s) número(s):</Form.Label>
-                    <Form.Label>
-                      {" "}
-                      {checked.map((numero, idx) => (
-                        <Button id={idx} className="buttonCheckout" key={idx}>
-                          <span>{numero}</span>
-                        </Button>
-                      ))}{" "}
-                    </Form.Label>
-                    <br />
-                    <Form.Label>Valor a pagar: R$ {sorteio.preco}</Form.Label>
-                    <br />
-                    <Form.Label>
-                      Por favor, preencha os dados abaixo:
-                    </Form.Label>
-                    <br />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formGroupEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formGroupPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
-                  </Form.Group>
-                </Form>
-              </Container>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Cancelar
-              </Button>
-              <Button variant="success">Aceitar</Button>
-            </Modal.Footer>
-          </Modal>
-        </>
-      );
-    }
-  }
 
   return (
     <>
@@ -256,11 +271,10 @@ export default function Sorteio1({ sorteio }) {
                       id={numero.numero}
                       key={idx}
                       variant={
-                        checked.includes(numero.numero.toString())
+                        numbers.includes(numero.numero.toString())
                           ? "success"
                           : "secondary"
                       }
-                      disabled={numero.pago === "S" || numero.pago === "R"}
                       onClick={handleCheck}
                       className={`${numero.pago} numero`}
                     >
@@ -281,7 +295,7 @@ export default function Sorteio1({ sorteio }) {
                 placement="top"
                 overlay={<Tooltip id="tc">Comprar</Tooltip>}
               >
-                <Checkout />
+                <Checkout sorteio={sorteio} />
               </OverlayTrigger>
             </Col>
           </Row>
