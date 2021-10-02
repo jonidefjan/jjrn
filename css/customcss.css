@@ -50,7 +50,7 @@ h1{
 }
 .numero{
     margin: 5px !important;
-    width: 43.25px;
+    min-width: 43.25px;
     height: 38px;
 }
 
