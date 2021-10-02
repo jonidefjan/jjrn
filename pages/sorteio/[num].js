@@ -15,7 +15,7 @@ import {
 } from "react-bootstrap";
 import InputMask from "react-input-mask";
 
-import premio from "../../assets/pix.png";
+import premio from "../../assets/pix.jpg";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNumbersContext } from "../../contexts/NumbersContext";
@@ -23,6 +23,7 @@ import { formatCurrency } from "../../lib/format";
 
 export const getServerSideProps = async (context) => {
   const { num } = context.query;
+  console.log(num);
   const res = await fetch(`https://jjrn.vercel.app/api/api?num=${num}`);
   const data = await res.json();
 

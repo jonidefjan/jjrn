@@ -19,8 +19,10 @@ function Home() {
           </Row>
           <hr />
           <Row>
-            <Col xs="auto">
+            <Col xs="6">
               <Cards link="001" sorteio="PIX 1.0 - R$ 1.400,00" />
+            </Col>
+            <Col>
               <Cards link="002" sorteio="PIX 2.0 - R$ 2.400,00" />
             </Col>
           </Row>

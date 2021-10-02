@@ -8,8 +8,9 @@ import logo2 from "../../assets/Como-Cadastrar-o.png";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 
-export const getServerSideProps = async () => {
-  const res = await fetch("https://jjrn.vercel.app/api/api");
+export const getServerSideProps = async (context) => {
+  const { num } = context.query;
+  const res = await fetch(`https://jjrn.vercel.app/api/api?num=${num}`);
   const data = await res.json();
 
   const sorteios = data.map((datas) => {
