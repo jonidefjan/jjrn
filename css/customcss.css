@@ -92,3 +92,10 @@ li{
     text-transform:uppercase;
     font-weight:600;
 }
+.formReserva{
+    min-width: 100%;
+}
+.submit a{
+    text-decoration: none !important;
+    color: #fff;
+}

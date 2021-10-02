@@ -119,9 +119,9 @@ export default function Pagamentos({ sorteio }) {
           </Col>
         </Row>
         <hr />
-        <Row centered>
+        <Row>
           <Col md="4">
-            <Card bg="dark" style={{ color: "#89e163" }}>
+            <Card>
               <Image src={logo1} alt="Nubank Pix" width={500} height={500} />
               <Card.Body>
                 <Card.Title>Pix Nubank</Card.Title>
@@ -133,8 +133,9 @@ export default function Pagamentos({ sorteio }) {
               </Card.Body>
             </Card>
           </Col>
+          <br />
           <Col md="4">
-            <Card bg="dark" style={{ color: "#89e163" }}>
+            <Card>
               <Image src={logo2} alt="Bradesco Pix" width={500} height={500} />
               <Card.Body>
                 <Card.Title>Pix Bradesco</Card.Title>
@@ -146,8 +147,9 @@ export default function Pagamentos({ sorteio }) {
               </Card.Body>
             </Card>
           </Col>
+          <br />
           <Col md="4">
-            <Card bg="dark" style={{ color: "#89e163" }}>
+            <Card>
               <Image
                 src={logo3}
                 alt="Transferencia Bradesco"

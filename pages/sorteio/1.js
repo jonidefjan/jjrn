@@ -19,7 +19,7 @@ import Header from "../../components/Header";
 import { useNumbersContext } from "../../contexts/NumbersContext";
 import { formatCurrency } from "../../lib/format";
 import Link from "next/link";
-import { useState } from "react";
+import InputMask from "react-input-mask";
 
 export const getServerSideProps = async () => {
   const res = await fetch("https://jjrn.vercel.app/api/api");
@@ -67,6 +67,18 @@ function Checkout({ sorteio }) {
   const price = sorteio[0].preco;
   const finalPrice = formatCurrency(arr * price);
 
+  function TelInput(props) {
+    return (
+      <InputMask
+        mask="(99) 9 9999 - 9999"
+        onChange={props.onChange}
+        value={props.value}
+        placeholder="Insira seu celular"
+        className="form-control"
+      />
+    );
+  }
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -81,7 +93,7 @@ function Checkout({ sorteio }) {
     return (
       <>
         <Button id="compra" variant="success" onClick={handleShow}>
-          Reservar número
+          Selecione algum número
         </Button>
 
         <Modal
@@ -108,7 +120,7 @@ function Checkout({ sorteio }) {
     return (
       <>
         <Button id="compra" variant="success" onClick={handleShow}>
-          Comprar
+          Reservar Número(s)
         </Button>
 
         <Modal
@@ -119,11 +131,16 @@ function Checkout({ sorteio }) {
           centered
         >
           <Modal.Header closeLabel="">
-            <Modal.Title>Reserva de número</Modal.Title>
+            <Modal.Title>Reserva de número(s)</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Container>
-              <Form noValidate validated={validated} onSubmit={handleSubmit}>
+              <Form
+                noValidate
+                validated={validated}
+                onSubmit={handleSubmit}
+                className="formReserva"
+              >
                 <Form.Group className="mb-3" controlId="numeros">
                   <Form.Label>Deseja reservar o(s) número(s):</Form.Label>
                   <br />
@@ -158,14 +175,9 @@ function Checkout({ sorteio }) {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupCel">
-                  <Form.Label>Celular</Form.Label>
-                  <Form.Control
-                    type="tel"
-                    placeholder="Insira seu telefone"
-                    maxLength="11"
-                    required
-                    defaultValue=""
-                  />
+                  <Form.Label>Celular:</Form.Label>
+                  <br />
+                  <TelInput />
                 </Form.Group>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
@@ -174,8 +186,8 @@ function Checkout({ sorteio }) {
                   <Button
                     variant="success"
                     type="submit"
-                    className="whatsCheckout"
                     onSubmit={handleSubmit}
+                    className="submit"
                   >
                     <Link href={`/checkout`}>Aceitar</Link>
                   </Button>
@@ -287,25 +299,19 @@ export default function Sorteio1({ sorteio }) {
             <Col>
               {sorteio.map((numero, idx) => {
                 return (
-                  <OverlayTrigger
+                  <Button
+                    id={numero.numero}
                     key={idx}
-                    placement="top"
-                    overlay={<Tooltip>{numero.masked}</Tooltip>}
+                    variant={
+                      numbers.includes(numero.numero.toString())
+                        ? "success"
+                        : "secondary"
+                    }
+                    onClick={handleCheck}
+                    className={`${numero.pago} numero`}
                   >
-                    <Button
-                      id={numero.numero}
-                      key={idx}
-                      variant={
-                        numbers.includes(numero.numero.toString())
-                          ? "success"
-                          : "secondary"
-                      }
-                      onClick={handleCheck}
-                      className={`${numero.pago} numero`}
-                    >
-                      {numero.numero}
-                    </Button>
-                  </OverlayTrigger>
+                    {numero.numero}
+                  </Button>
                 );
               })}
             </Col>
@@ -318,7 +324,7 @@ export default function Sorteio1({ sorteio }) {
               <OverlayTrigger
                 key={1}
                 placement="top"
-                overlay={<Tooltip id="tc">Comprar</Tooltip>}
+                overlay={<Tooltip id="tc">Reservar Número(s)</Tooltip>}
               >
                 <Checkout sorteio={sorteio} />
               </OverlayTrigger>
