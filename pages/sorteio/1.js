@@ -254,8 +254,6 @@ export default function Sorteio1({ sorteio }) {
         <hr />
         <Container fluid align="center">
           <Row>
-            <Col>
-              <ButtonGroup aria-label="Basic example">
                 <Button
                   onClick={filtro}
                   id="todos"
@@ -263,7 +261,7 @@ export default function Sorteio1({ sorteio }) {
                   className="filtro"
                 >
                   Todos ({sorteio.length})
-                </Button>
+                </Button>{' '}
                 <Button
                   onClick={filtro}
                   id="disponivel"
@@ -272,7 +270,7 @@ export default function Sorteio1({ sorteio }) {
                 >
                   Disponível (
                   {sorteio.filter((item) => item.pago === "N").length})
-                </Button>
+                </Button>{' '}
                 <Button
                   onClick={filtro}
                   id="reservado"
@@ -281,7 +279,7 @@ export default function Sorteio1({ sorteio }) {
                 >
                   Reservado (
                   {sorteio.filter((item) => item.pago === "R").length})
-                </Button>
+                </Button>{' '}
                 <Button
                   onClick={filtro}
                   id="pago"
@@ -289,9 +287,7 @@ export default function Sorteio1({ sorteio }) {
                   className="filtro"
                 >
                   Pago ({sorteio.filter((item) => item.pago === "S").length})
-                </Button>
-              </ButtonGroup>
-            </Col>
+                </Button>{' '}
           </Row>
         </Container>
         <hr />

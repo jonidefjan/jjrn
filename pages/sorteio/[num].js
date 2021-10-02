@@ -301,45 +301,42 @@ export default function Sorteio1({ sorteio }) {
         <Container fluid align="center">
           <Row>
             <Col>
-              <ButtonGroup aria-label="Basic example">
-                <Button
-                  onClick={filtro}
-                  id="todos"
-                  variant="light"
-                  className="filtro"
-                >
-                  Todos ({sorteio.length})
-                </Button>
-                <Button
-                  onClick={filtro}
-                  id="disponivel"
-                  variant="secondary"
-                  className="filtro"
-                >
-                  Disponível (
-                  {sorteio.filter((item) => item.pago === "N").length})
-                </Button>
-                <Button
-                  onClick={filtro}
-                  id="reservado"
-                  variant="info"
-                  className="filtro"
-                >
-                  Reservado (
-                  {sorteio.filter((item) => item.pago === "R").length})
-                </Button>
-                <Button
-                  onClick={filtro}
-                  id="pago"
-                  variant="success"
-                  className="filtro"
-                >
-                  Pago ({sorteio.filter((item) => item.pago === "S").length})
-                </Button>
-                <Button id="pagamento" variant="danger" onClick={handleShowM}>
-                  Clique para pagar
-                </Button>
-              </ButtonGroup>
+              <Button
+                onClick={filtro}
+                id="todos"
+                variant="light"
+                className="filtro"
+              >
+                Todos ({sorteio.length})
+              </Button>{" "}
+              <Button
+                onClick={filtro}
+                id="disponivel"
+                variant="secondary"
+                className="filtro"
+              >
+                Disponível ({sorteio.filter((item) => item.pago === "N").length}
+                )
+              </Button>{" "}
+              <Button
+                onClick={filtro}
+                id="reservado"
+                variant="info"
+                className="filtro"
+              >
+                Reservado ({sorteio.filter((item) => item.pago === "R").length})
+              </Button>{" "}
+              <Button
+                onClick={filtro}
+                id="pago"
+                variant="success"
+                className="filtro"
+              >
+                Pago ({sorteio.filter((item) => item.pago === "S").length})
+              </Button>{" "}
+              <Button id="pagamento" variant="danger" onClick={handleShowM}>
+                Clique para pagar
+              </Button>{" "}
             </Col>
           </Row>
         </Container>
