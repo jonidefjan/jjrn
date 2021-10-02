@@ -227,7 +227,7 @@ export default function Sorteio1({ sorteio }) {
         <Row className="regulamento">
           <Col>
             <h3>Ação entre amigos PIX 1.0</h3>
-            <h2>Regulamento/Descrição</h2>
+            <h4>Regulamento/Descrição</h4>
             <ul>
               <li>1° Prêmio R$ 1.000,00</li>
               <li>2° Prêmio R$ 200,00</li>
