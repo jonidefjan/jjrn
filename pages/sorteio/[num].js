@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   Button,
   ButtonGroup,
@@ -21,13 +21,14 @@ import Header from "../../components/Header";
 import { useNumbersContext } from "../../contexts/NumbersContext";
 import { formatCurrency } from "../../lib/format";
 
-export const getServerSideProps = async () => {
-  const res = await fetch("https://jjrn.vercel.app/api/api?001");
+export const getServerSideProps = async (context) => {
+  const { num } = context.query;
+  const res = await fetch(`https://jjrn.vercel.app/api/api?num=${num}`);
   const data = await res.json();
 
   const sorteios = data.map((datas) => {
     var ename = datas.NOME;
-    var str = ename.substr(3, [ename.length - 5]);
+    var str = ename.substr(2, [ename.length - 2]);
 
     const obj = {
       id: datas.ID,
@@ -51,9 +52,8 @@ export const getServerSideProps = async () => {
 function Checkout({ sorteio }) {
   const [show, setShow] = React.useState(false);
   const [validated, setValidated] = React.useState(false);
+  const router = useRouter();
   const { numbers, removeNumber } = useNumbersContext();
-
-  console.log(validated);
 
   const arr = numbers.length;
 
@@ -70,7 +70,8 @@ function Checkout({ sorteio }) {
   function TelInput(props) {
     return (
       <InputMask
-        mask="(99) 9 9999 - 9999"
+        name="telefone"
+        mask="(99) 9 9999-9999"
         onChange={props.onChange}
         value={props.value}
         placeholder="Insira seu celular"
@@ -80,13 +81,43 @@ function Checkout({ sorteio }) {
   }
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
     event.preventDefault();
-    setValidated(true);
+    event.stopPropagation();
+
+    const form = event.currentTarget;
+    const name = form.nome.value;
+    const tel = form.telefone.value;
+
+    if (!form.checkValidity()) {
+      setValidated(true);
+    }
+
+    numbers.forEach(async (number) => {
+      await fetch(`https://jjrn.vercel.app/api/update`, {
+        method: "POST",
+        body: JSON.stringify({
+          numero: {
+            id: number,
+            nome: name,
+            tel,
+          },
+        }),
+      });
+    });
+
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("name", name);
+      window.localStorage.setItem("tel", tel);
+      window.localStorage.setItem("reserved-numbers", numbers.length);
+      window.localStorage.setItem("numbers", numbers);
+      window.localStorage.setItem("price", finalPrice);
+
+      router.push("/checkout");
+      return;
+    }
+
+    setShow(false);
+    router.reload();
   };
 
   if (arr <= 0) {
@@ -167,7 +198,7 @@ function Checkout({ sorteio }) {
                 <Form.Group className="mb-3" controlId="formGroupNome">
                   <Form.Label>Nome Completo:</Form.Label>
                   <Form.Control
-                    defaultValue=""
+                    name="nome"
                     type="text"
                     placeholder="Insira seu nome completo"
                     maxLength={32}
@@ -189,7 +220,7 @@ function Checkout({ sorteio }) {
                     onSubmit={handleSubmit}
                     className="submit"
                   >
-                    <Link href={`/checkout`}>Aceitar</Link>
+                    Aceitar
                   </Button>
                 </Modal.Footer>
               </Form>
@@ -202,14 +233,29 @@ function Checkout({ sorteio }) {
 }
 
 export default function Sorteio1({ sorteio }) {
+  const [showM, setShowM] = React.useState(false);
   const { numbers, addNumber } = useNumbersContext();
-  console.log(numbers);
 
   const handleCheck = (button) => addNumber(button.target.id);
+
+  const handleCloseM = () => setShowM(false);
+  const handleShowM = () => setShowM(true);
 
   const filtro = (button) => {
     const id = button.target.id;
   };
+
+  function TelInput(props) {
+    return (
+      <InputMask
+        mask="(99) 9 9999-9999"
+        onChange={props.onChange}
+        value={props.value}
+        placeholder="Insira seu celular"
+        className="form-control"
+      />
+    );
+  }
 
   return (
     <>
@@ -290,6 +336,9 @@ export default function Sorteio1({ sorteio }) {
                 >
                   Pago ({sorteio.filter((item) => item.pago === "S").length})
                 </Button>
+                <Button id="pagamento" variant="danger" onClick={handleShowM}>
+                  Clique para pagar
+                </Button>
               </ButtonGroup>
             </Col>
           </Row>
@@ -333,6 +382,24 @@ export default function Sorteio1({ sorteio }) {
           </Row>
         </Container>
       </Container>
+      <Modal
+        show={showM}
+        onHide={handleCloseM}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeLabel="">
+          <Modal.Title>Buscar meus números</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <TelInput />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseM}>
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Footer />
     </>
   );
