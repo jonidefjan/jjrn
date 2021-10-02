@@ -51,6 +51,8 @@ h1{
 }
 .numero{
     margin: 5px !important;
+    width: 43.25px;
+    height: 38px;
 }
 
 p, h3, h2, li{

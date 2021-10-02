@@ -69,7 +69,6 @@ function Checkout({ sorteio }) {
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
-    console.log(form);
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
@@ -82,7 +81,7 @@ function Checkout({ sorteio }) {
     return (
       <>
         <Button id="compra" variant="success" onClick={handleShow}>
-          Comprar
+          Reservar número
         </Button>
 
         <Modal
@@ -178,7 +177,7 @@ function Checkout({ sorteio }) {
                     className="whatsCheckout"
                     onSubmit={handleSubmit}
                   >
-                    Aceitar
+                    <Link href={`/checkout`}>Aceitar</Link>
                   </Button>
                 </Modal.Footer>
               </Form>
@@ -206,7 +205,7 @@ export default function Sorteio1({ sorteio }) {
       <Container fluid align="center">
         <Row>
           <Col>
-            <h1>Sorteio 001 pix R$ 1400,00</h1>
+            <h1>Ação entre amigos PIX 1.0 - R$ 1.400,00</h1>
           </Col>
         </Row>
         <Row>
@@ -227,8 +226,8 @@ export default function Sorteio1({ sorteio }) {
         <hr />
         <Row className="regulamento">
           <Col>
-            <h3>Regulamento/Descrição</h3>
-            <h2>Edição Pix 1 valendo R$ 1.400,00:</h2>
+            <h3>Ação entre amigos PIX 1.0</h3>
+            <h2>Regulamento/Descrição</h2>
             <ul>
               <li>1° Prêmio R$ 1.000,00</li>
               <li>2° Prêmio R$ 200,00</li>
