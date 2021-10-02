@@ -1,11 +1,12 @@
 import React from "react";
-import { Button, Col, Container, Row, Table, Card } from "react-bootstrap";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
 import Image from "next/image";
+import { Button, Card, Col, Container, Row, Table } from "react-bootstrap";
+
+import logo3 from "../../assets/logo-bradesco-768.png";
 import logo1 from "../../assets/Como-cadastrar-chave-pix-no-nubank.png";
 import logo2 from "../../assets/Como-Cadastrar-o.png";
-import logo3 from "../../assets/logo-bradesco-768.png";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 
 export const getServerSideProps = async () => {
   const res = await fetch("https://jjrn.vercel.app/api/api");
@@ -35,6 +36,20 @@ export const getServerSideProps = async () => {
 };
 
 export default function Pagamentos({ sorteio }) {
+  let nome = "";
+  let tel = "";
+  let reservedNumbers = "";
+  let numbers = "";
+  let price = "";
+
+  if (typeof window !== "undefined") {
+    nome = window.localStorage.getItem("name");
+    tel = window.localStorage.getItem("tel");
+    reservedNumbers = window.localStorage.getItem("reserved-numbers");
+    numbers = window.localStorage.getItem("numbers");
+    price = window.localStorage.getItem("price");
+  }
+
   return (
     <>
       <Header />
@@ -56,23 +71,23 @@ export default function Pagamentos({ sorteio }) {
               <tbody>
                 <tr>
                   <td>Participante:</td>
-                  <td>Mark</td>
+                  <td>{nome}</td>
                 </tr>
                 <tr>
                   <td>Telefone:</td>
-                  <td>(11) 95356-8287</td>
+                  <td>{tel}</td>
                 </tr>
                 <tr>
                   <td>Quantidade:</td>
-                  <td>{sorteio.length} Número(s)</td>
+                  <td>{reservedNumbers} Número(s)</td>
                 </tr>
                 <tr>
                   <td>Números Reservados:</td>
-                  <td>05</td>
+                  <td>{numbers}</td>
                 </tr>
                 <tr>
                   <td>VALOR A PAGAR:</td>
-                  <td>R$ 149,00</td>
+                  <td>{price}</td>
                 </tr>
                 <tr>
                   <td>Já fez o pagamento? Envie para nós!</td>
@@ -103,9 +118,11 @@ export default function Pagamentos({ sorteio }) {
                     <br />
                     1° Prêmio R$ 1.000,00
                     <br />
-                    2° Prêmio R$ 200,00
+                    2° Prêmio R$ 100,00
                     <br />
-                    3° Prêmio R$ 200,00
+                    3° Prêmio R$ 100,00
+                    <br />
+                    4° Prêmio R$ 100,00
                   </td>
                 </tr>
               </tbody>

@@ -1,19 +1,17 @@
-import { sql_query } from "../../lib/db";
+import { sql_query_transaction } from "../../lib/db";
 
-const updateNum = async (_, res) => {
+const updateNum = async (req, res) => {
+  const { numero } = JSON.parse(req.body);
+
   try {
-    let result = await sql_query
-      .transaction()
-      .query((numero) => [
-        `UPDATE TJD_MAIN SET PAGO=R, NOME=?, TEL=? WHERE NUMEROSORTEIO IN = (?) `,
-        numero.nome,
-        numero.tel,
-        numero.id,
-      ])
-      .rollback((e) => {
-        /* do something with the error */
-      }) // optional
-      .commit(); // execute the queries
+    await sql_query_transaction(
+      'UPDATE TJD_MAIN SET PAGO="R", NOME=?, TEL=? WHERE NUMEROSORTEIO IN (?)',
+      [numero.nome, numero.tel, numero.id]
+    );
+
+    res
+      .status(200)
+      .json({ message: `Pagamento do número ${numero.id} reservado` });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

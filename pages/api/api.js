@@ -1,10 +1,13 @@
 import { sql_query } from "../../lib/db";
 
-const handler = async (_, res) => {
+const handler = async (req, res) => {
+  const { num } = req.query;
+
   try {
-    const results = await sql_query(`
-            SELECT * FROM TJD_MAIN WHERE SORTEIO = '001' ORDER BY NUMEROSORTEIO
-        `);
+    const results = await sql_query(
+      "SELECT * FROM TJD_MAIN WHERE SORTEIO = ? ORDER BY NUMEROSORTEIO",
+      num
+    );
 
     return res.json(results);
   } catch (error) {

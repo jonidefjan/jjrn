@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/jonidefjan/jjrn#readme",
   "dependencies": {
-    "@types/mysql": "^2.15.19",
     "bootstrap": "^5.0.0-beta3",
     "mysql": "^2.18.1",
     "next": "^11.1.2",
@@ -32,6 +31,7 @@
     "serverless-mysql": "^1.5.4"
   },
   "devDependencies": {
+    "@types/mysql": "^2.15.19",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.2",
     "eslint-config-prettier": "^8.3.0",
