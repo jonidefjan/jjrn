@@ -143,7 +143,7 @@ export default function Pagamentos({ sorteio }) {
               <Image src={logo1} alt="Nubank Pix" width={500} height={500} />
               <Card.Body>
                 <Card.Title>Pix Nubank</Card.Title>
-                <Card.Text>
+                <Card.Text className="preto">
                   Favorecido: José Jacson da Silva de Sena
                   <br />
                   Chave: 325 951 198 - 93
@@ -157,7 +157,7 @@ export default function Pagamentos({ sorteio }) {
               <Image src={logo2} alt="Bradesco Pix" width={500} height={500} />
               <Card.Body>
                 <Card.Title>Pix Bradesco</Card.Title>
-                <Card.Text>
+                <Card.Text className="preto">
                   Favorecido: José Jacson da Silva de Sena
                   <br />
                   Chave: 11 93078 3898
@@ -176,7 +176,7 @@ export default function Pagamentos({ sorteio }) {
               />
               <Card.Body>
                 <Card.Title>Transferencia Bradesco</Card.Title>
-                <Card.Text>
+                <Card.Text className="preto">
                   FAg.: 0160 C/c.: 0099297-6 <br />
                   José Jacson da Silva de Sena
                 </Card.Text>
