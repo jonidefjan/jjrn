@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import {
@@ -20,6 +20,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNumbersContext } from "../../contexts/NumbersContext";
 import { formatCurrency } from "../../lib/format";
+import { useEffect } from "react";
 
 export const getServerSideProps = async (context) => {
   const { num } = context.query;
@@ -40,6 +41,8 @@ export const getServerSideProps = async (context) => {
       preco: datas.PRECO,
       masked: str,
       sorteio: datas.SORTEIO,
+      premioSort: datas.NOMESORTEIO,
+      valor: datas.premio,
     };
 
     return obj;
@@ -242,13 +245,41 @@ export default function Sorteio1({ sorteio }) {
   const handleCloseM = () => setShowM(false);
   const handleShowM = () => setShowM(true);
 
+  const premioSort = sorteio[0].premioSort;
+
+  const valorPremio = sorteio[0].valor;
+  console.log(valorPremio)
+
   const filtro = (button) => {
     const id = button.target.id;
+  };
+
+  const router = useRouter();
+
+  const handleSubmitR = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const form = event.currentTarget;
+    const nome = form.nome.value;
+
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("nome", nome);
+
+      router.push({
+        pathname: "/checkout/1",
+        query: { nome },
+      });
+      return;
+    }
+
+    router.reload();
   };
 
   function TelInput(props) {
     return (
       <InputMask
+        name="tel"
         mask="(99) 9 9999-9999"
         onChange={props.onChange}
         value={props.value}
@@ -264,7 +295,7 @@ export default function Sorteio1({ sorteio }) {
       <Container fluid align="center">
         <Row>
           <Col>
-            <h1>Ação entre amigos PIX 1.0 - R$ 1.400,00</h1>
+            <h1>Ação entre amigos {premioSort}</h1>
           </Col>
         </Row>
         <Row>
@@ -285,13 +316,14 @@ export default function Sorteio1({ sorteio }) {
         <hr />
         <Row className="regulamento">
           <Col>
-            <h3>Ação entre amigos PIX 1.0</h3>
-            <h4>Regulamento/Descrição</h4>
+            <h3>Ação entre amigos</h3>
+            <h4>cota {sorteio[0].preco}</h4>
             <ul>
-              <li>1° Prêmio R$ 1.000,00</li>
+              <li>1° Prêmio R$ {valorPremio}</li>
               <li>2° Prêmio R$ 100,00</li>
               <li>3° Prêmio R$ 100,00</li>
               <li>4° Prêmio R$ 100,00</li>
+              <li>5° Prêmio R$ 100,00</li>
             </ul>
           </Col>
         </Row>
@@ -389,14 +421,26 @@ export default function Sorteio1({ sorteio }) {
         <Modal.Header closeLabel="">
           <Modal.Title>Buscar meus números</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <TelInput />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseM}>
-            Fechar
-          </Button>
-        </Modal.Footer>
+        <Form onSubmit={handleSubmitR}>
+          <Modal.Body>
+            <Form.Group className="mb-3" controlId="formGroupNome">
+              <Form.Label>Nome Completo:</Form.Label>
+              <Form.Control
+                name="nome"
+                type="text"
+                placeholder="Insira seu nome completo"
+                maxLength={32}
+                required
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseM}>
+              Fechar
+            </Button>
+            <Button type="submit">Pagar</Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
       <Footer />
     </>
