@@ -52,8 +52,8 @@ export default function Pagamentos({ sorteio }) {
     nome = sorteio[0].nome;
     tel = sorteio[0].tel;
     reservedNumbers = sorteio.length;
-    numbers = window.localStorage.getItem("numbers");
-    price = window.localStorage.getItem("price");
+    numbers = sorteio.map(numeros => JSON.parse(`${numeros.numero}`)+ " ");
+    price = (reservedNumbers*sorteio[0].preco/100).toFixed(2);
   }
 
   return (
@@ -93,7 +93,7 @@ export default function Pagamentos({ sorteio }) {
                 </tr>
                 <tr>
                   <td>VALOR A PAGAR:</td>
-                  <td>{price}</td>
+                  <td>R$ {price}</td>
                 </tr>
                 <tr>
                   <td>Já fez o pagamento? Envie para nós!</td>
@@ -120,11 +120,11 @@ export default function Pagamentos({ sorteio }) {
                 <tr>
                   <td>Sorteio:</td>
                   <td>
-                    {sorteio.nomeSorteio}:
+                    {sorteio[0].nomeSorteio}:
                     <br />
-                    Cota: R$ {sorteio[0].preco}
+                    Cota: R$ {(sorteio[0].preco/100).toFixed(2)}
                     <br />
-                    1° Prêmio R$ {sorteio.premio}
+                    1° Prêmio R$ {(sorteio[0].premio/100 - 400).toFixed(2)}
                     <br />
                     2° Prêmio R$ 100,00
                     <br />

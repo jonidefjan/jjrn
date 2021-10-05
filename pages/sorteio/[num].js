@@ -254,6 +254,11 @@ export default function Sorteio1({ sorteio }) {
     const id = button.target.id;
   };
 
+  function formatNumber(value) {
+    value = convertToFloatNumber(value);
+    return value.formatMoney(2, ',', '.');
+}
+
   const router = useRouter();
 
   const handleSubmitR = (event) => {
@@ -317,9 +322,9 @@ export default function Sorteio1({ sorteio }) {
         <Row className="regulamento">
           <Col>
             <h3>Ação entre amigos</h3>
-            <h4>cota {sorteio[0].preco}</h4>
+            <h4>cota R$ {(sorteio[0].preco / 100).toFixed(2)}</h4>
             <ul>
-              <li>1° Prêmio R$ {valorPremio}</li>
+              <li>1° Prêmio R$ {(valorPremio/100 - 400).toFixed(2)}</li>
               <li>2° Prêmio R$ 100,00</li>
               <li>3° Prêmio R$ 100,00</li>
               <li>4° Prêmio R$ 100,00</li>
