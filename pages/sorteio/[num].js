@@ -248,7 +248,7 @@ export default function Sorteio1({ sorteio }) {
   const premioSort = sorteio[0].premioSort;
 
   const valorPremio = sorteio[0].valor;
-  console.log(valorPremio)
+  console.log(valorPremio);
 
   const filtro = (button) => {
     const id = button.target.id;
@@ -256,8 +256,8 @@ export default function Sorteio1({ sorteio }) {
 
   function formatNumber(value) {
     value = convertToFloatNumber(value);
-    return value.formatMoney(2, ',', '.');
-}
+    return value.formatMoney(2, ",", ".");
+  }
 
   const router = useRouter();
 
@@ -324,7 +324,7 @@ export default function Sorteio1({ sorteio }) {
             <h3>Ação entre amigos</h3>
             <h4>cota R$ {(sorteio[0].preco / 100).toFixed(2)}</h4>
             <ul>
-              <li>1° Prêmio R$ {(valorPremio/100 - 400).toFixed(2)}</li>
+              <li>1° Prêmio R$ {(valorPremio / 100 - 400).toFixed(2)}</li>
               <li>2° Prêmio R$ 100,00</li>
               <li>3° Prêmio R$ 100,00</li>
               <li>4° Prêmio R$ 100,00</li>
